@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You Page Template</title>
+  <style>
+    :root {
+      --bg: #030406;
+      --panel: #080a0f;
+      --line: #1a2230;
+      --text: #f4f6fb;
+      --muted: #a9b2c4;
+      --accent: #d4ff3b;
+      --pill: #101722;
+      --success: #9eff00;
+      --warning: #ffc44d;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 50% 0%, #101a29 0%, rgba(16, 26, 41, 0) 45%),
+        linear-gradient(180deg, #000 0%, #05070b 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 32px 16px 80px;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 640px;
+    }
+
+    .canvas {
+      width: 100%;
+      margin-top: 38px;
+      border: 1px solid #1f2b3e;
+      border-radius: 20px;
+      padding: 44px 22px 18px;
+      background:
+        linear-gradient(180deg, rgba(16, 24, 36, 0.85) 0%, rgba(5, 8, 13, 0.95) 100%);
+      box-shadow:
+        0 24px 80px rgba(0, 0, 0, 0.7),
+        inset 0 0 0 1px rgba(180, 210, 255, 0.05);
+      position: relative;
+      overflow: visible;
+    }
+
+    .canvas::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 100% 28px,
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px) 0 0 / 28px 100%;
+      pointer-events: none;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 48px;
+      letter-spacing: -0.02em;
+      line-height: 1.02;
+      font-weight: 800;
+    }
+
+    .header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .step-pill {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      margin: 0;
+      width: fit-content;
+      padding: 8px 18px;
+      border-radius: 999px;
+      border: 1px solid #303f56;
+      background: linear-gradient(180deg, #182133 0%, #121a29 100%);
+      font-weight: 700;
+      font-size: 14px;
+      color: #e8eefc;
+    }
+
+    .video-wrap {
+      position: relative;
+      z-index: 1;
+      border: 1px solid #2a3447;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0b0f16;
+    }
+
+    .video {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: #0b0f16;
+    }
+
+    .video img {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: auto;
+    }
+
+    .case-studies {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 14px;
+      margin-top: 2px;
+    }
+
+    .case-study-video {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      display: block;
+    }
+
+    .calendar-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: nowrap;
+      margin-top: 2px;
+    }
+
+    .calendar-btn {
+      min-width: 0;
+      width: 250px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      border: 1px solid transparent;
+      transition: transform 0.12s ease;
+      white-space: nowrap;
+    }
+
+    .calendar-btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .calendar-btn.google {
+      background: linear-gradient(180deg, #ff5f52 0%, #f2342d 100%);
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(242, 52, 45, 0.35);
+    }
+
+    .calendar-btn.apple {
+      background: #eceef1;
+      color: #111319;
+      border-color: #d6dae2;
+    }
+
+    .google-g {
+      width: 18px;
+      height: 18px;
+      display: inline-block;
+      flex: 0 0 18px;
+    }
+
+    .calendar-note {
+      position: relative;
+      z-index: 1;
+      margin: 12px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .event-details {
+      margin: 18px auto 0;
+      max-width: 560px;
+      border: 1px solid #2a3447;
+      border-radius: 12px;
+      padding: 10px 12px;
+      color: #b7c0d3;
+      font-size: 13px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .legal-footer {
+      margin-top: 72px;
+      padding-top: 20px;
+      border-top: 1px solid #2a3447;
+      text-align: center;
+      color: rgba(215, 222, 234, 0.62);
+      font-size: 10px;
+      line-height: 1.45;
+    }
+
+    .legal-footer p {
+      margin: 0 0 10px;
+    }
+
+    .legal-links {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 2px 0 10px;
+      flex-wrap: wrap;
+    }
+
+    .legal-links a {
+      color: rgba(215, 222, 234, 0.72);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .legal-links a:hover {
+      text-decoration: underline;
+    }
+
+    .legal-copy {
+      color: rgba(184, 193, 210, 0.6);
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 620px) {
+      .step-pill {
+        left: 12px;
+        right: 12px;
+        transform: translateY(-50%);
+        margin: 0 auto;
+        width: fit-content;
+        max-width: calc(100% - 24px);
+        text-align: center;
+      }
+
+      .calendar-actions {
+        flex-wrap: wrap;
+      }
+
+      .calendar-btn {
+        width: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <h1>Congratulations</h1>
+      <p>Your call is now scheduled with our team 🔒</p>
+    </header>
+
+    <main class="canvas">
+      <div class="step-pill">Step #1: Confirm Our Call</div>
+
+      <section class="video-wrap">
+        <div class="video">
+          <img src="image/Untitled design.png" alt="Scheduled call preview" />
+        </div>
+      </section>
+    </main>
+
+    <main class="canvas">
+      <div class="step-pill">Step #2: Add Event To Calendar</div>
+
+      <section class="calendar-actions">
+        <a id="googleCalendarLink" class="calendar-btn google" href="#" target="_blank" rel="noopener noreferrer">
+          <svg class="google-g" viewBox="0 0 24 24" aria-hidden="true">
+            <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.2 1.2-1.4 3.4-5.4 3.4-3.2 0-5.8-2.7-5.8-6s2.6-6 5.8-6c1.8 0 3 .8 3.7 1.4l2.5-2.4C16.6 3 14.5 2 12 2 6.9 2 2.8 6.2 2.8 11.5S6.9 21 12 21c6.9 0 9.1-4.8 9.1-7.3 0-.5 0-.8-.1-1.2H12z"/>
+            <path fill="#4285F4" d="M21.1 12.5H12v3.9h5.4c-.3 1.4-1.3 2.4-2.8 3.1l3.4 2.6c2-1.8 3.1-4.5 3.1-7.8 0-.6 0-1.2-.1-1.8z"/>
+            <path fill="#FBBC05" d="M6.5 13.6c-.2-.6-.3-1.3-.3-2s.1-1.4.3-2L3 6.9C2.3 8.3 1.9 9.9 1.9 11.6s.4 3.3 1.1 4.7l3.5-2.7z"/>
+            <path fill="#34A853" d="M12 21c2.5 0 4.6-.8 6.2-2.3l-3.4-2.6c-.9.6-2.1 1-3.5 1-2.7 0-5-1.8-5.8-4.3L2 15.4C3.6 18.8 7.5 21 12 21z"/>
+          </svg>
+          Add To Google Calendar
+        </a>
+        <a id="appleCalendarLink" class="calendar-btn apple" href="#"> Add To Apple Calendar</a>
+      </section>
+
+      <p class="calendar-note">Select the calendar you use above to add your call</p>
+
+    </main>
+
+    <main class="canvas">
+      <div class="step-pill">Step #3: Watch These 2 Case Studies</div>
+
+      <section class="case-studies">
+        <div class="video-wrap">
+          <iframe
+            class="case-study-video"
+            src="https://www.youtube.com/embed/TdGSTmqAiZk"
+            title="Case Study 1"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <div class="video-wrap">
+          <iframe
+            class="case-study-video"
+            src="https://www.youtube.com/embed/Qck4EJmWqgQ"
+            title="Case Study 2"
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="legal-footer">
+      <p>
+        DealCloser is not and does not offer written or spoken assurance in response to any customer, result, or outcome of the services and strategies purchased
+        or used. Your outcomes are dependent on your own actions and your implementation of the guidance. Results are not typical and are not guaranteed.
+        Individual results vary significantly due to business model, experience, market conditions, and investment strategy.
+      </p>
+      <p>
+        Any testimonials provided are real but are not claims of earnings and are not intended to represent that any user will achieve the same or similar results.
+        There is no guarantee you will get the same outcomes. Nothing provided by DealCloser should be considered legal, tax, or financial advice.
+      </p>
+      <p>
+        DealCloser is not a part of Google, Meta, Facebook, Microsoft, LinkedIn, X, or any of their partner companies.
+      </p>
+      <div class="legal-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <p class="legal-copy">© 2026 DealCloser LLC. All rights reserved.</p>
+    </footer>
+  </div>
+  <script>
+    (function wireCalendlyCalendarButtons() {
+      function toUtcCalendarStamp(dateObj) {
+        return dateObj.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
+      }
+
+      const params = new URLSearchParams(window.location.search);
+      const eventStartTime = params.get("event_start_time");
+      const eventEndTime = params.get("event_end_time");
+      const eventTypeName = params.get("event_type_name") || "Scheduled Call";
+      const inviteeFullName = params.get("invitee_full_name") || "";
+
+      const googleButton = document.getElementById("googleCalendarLink");
+      const appleButton = document.getElementById("appleCalendarLink");
+      const eventDetailsEl = document.querySelector(".event-details");
+
+      if (!eventStartTime) {
+        console.warn("Calendly event_start_time is missing. Calendar buttons were left unchanged.");
+        return;
+      }
+
+      const startDate = new Date(eventStartTime);
+      const endDate = eventEndTime ? new Date(eventEndTime) : new Date(startDate.getTime() + 30 * 60 * 1000);
+
+      if (Number.isNaN(startDate.getTime()) || Number.isNaN(endDate.getTime())) {
+        console.warn("Calendly event date values are invalid. Calendar buttons were left unchanged.");
+        return;
+      }
+
+      const startUtc = toUtcCalendarStamp(startDate);
+      const endUtc = toUtcCalendarStamp(endDate);
+      const eventName = eventTypeName;
+      const eventDescription = "Looking forward to our call";
+      const readableDate = startDate.toLocaleString(undefined, {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      });
+
+      if (eventDetailsEl) {
+        eventDetailsEl.textContent = inviteeFullName
+          ? `${eventName} for ${inviteeFullName} on ${readableDate}`
+          : `${eventName} on ${readableDate}`;
+      }
+
+      if (googleButton) {
+        const googleUrl =
+          "https://calendar.google.com/calendar/render?action=TEMPLATE" +
+          "&text=" + encodeURIComponent(eventName) +
+          "&dates=" + encodeURIComponent(startUtc + "/" + endUtc) +
+          "&details=" + encodeURIComponent(eventDescription);
+        googleButton.setAttribute("href", googleUrl);
+      }
+
+      if (appleButton) {
+        appleButton.addEventListener("click", function (event) {
+          event.preventDefault();
+
+          const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "BEGIN:VEVENT",
+            "SUMMARY:" + eventName,
+            "DTSTART:" + startUtc,
+            "DTEND:" + endUtc,
+            "DESCRIPTION:" + eventDescription,
+            "END:VEVENT",
+            "END:VCALENDAR"
+          ].join("\r\n");
+
+          const blob = new Blob([icsContent], { type: "text/calendar" });
+          const blobUrl = URL.createObjectURL(blob);
+          const tempAnchor = document.createElement("a");
+          tempAnchor.href = blobUrl;
+          tempAnchor.download = "event.ics";
+          document.body.appendChild(tempAnchor);
+          tempAnchor.click();
+          document.body.removeChild(tempAnchor);
+          URL.revokeObjectURL(blobUrl);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
