@@ -270,6 +270,12 @@
       .calendar-btn {
         width: 100%;
       }
+
+      .call-preview-wrap {
+        width: calc(100% + 24px);
+        margin-left: -12px;
+        margin-right: -12px;
+      }
     }
 
   </style>
@@ -284,13 +290,16 @@
     <main class="canvas">
       <div class="step-pill">Step #1: Confirm Our Call</div>
 
-      <section class="video-wrap">
+      <section class="video-wrap call-preview-wrap">
         <div class="video">
-          <img
-            src="images/Untitled%20design.png"
-            alt="Scheduled call preview"
-            onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='/thank-you/images/Untitled%20design.png';}else if(!this.dataset.secondFallbackTried){this.dataset.secondFallbackTried='1';this.src='/images/Untitled%20design.png';}"
-          />
+          <picture>
+            <source media="(max-width: 620px)" srcset="images/Screenshot%202026-04-21%20at%2017.13.12.png" />
+            <img
+              src="images/Untitled%20design.png"
+              alt="Scheduled call preview"
+              onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='/thank-you/images/Untitled%20design.png';}else if(!this.dataset.secondFallbackTried){this.dataset.secondFallbackTried='1';this.src='/images/Untitled%20design.png';}"
+            />
+          </picture>
         </div>
       </section>
     </main>
