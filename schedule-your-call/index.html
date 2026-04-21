@@ -87,15 +87,6 @@
       font-size: 9px;
     }
 
-    #confetti-canvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 9999;
-    }
-
     @media (max-width: 600px) {
       .hero {
         width: 100%;
@@ -123,7 +114,6 @@
 </script>
 </head>
 <body>
-  <canvas id="confetti-canvas" aria-hidden="true"></canvas>
   <main class="hero">
     <h1>→ NEXT STEP: Schedule In Your Call ←</h1>
     <!-- Calendly inline widget begin -->
@@ -142,80 +132,5 @@
     </div>
     <div class="footer-copy">© 2026 AI Ascension LLC. All rights reserved.</div>
   </footer>
-  <script>
-    (function () {
-      const canvas = document.getElementById("confetti-canvas");
-      const ctx = canvas.getContext("2d");
-      const pieces = [];
-      const colors = ["#2f9fd4", "#1f7ba7", "#5de2b0", "#ffffff", "#7bd3ff"];
-      const totalPieces = 140;
-      const durationMs = 1000;
-      let startTime = 0;
-
-      function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-      }
-
-      function random(min, max) {
-        return Math.random() * (max - min) + min;
-      }
-
-      function createPieces() {
-        pieces.length = 0;
-        for (let i = 0; i < totalPieces; i += 1) {
-          pieces.push({
-            x: random(0, canvas.width),
-            y: random(-canvas.height * 0.4, 0),
-            w: random(5, 10),
-            h: random(8, 16),
-            vx: random(-2.2, 2.2),
-            vy: random(4.2, 8.2),
-            rot: random(0, Math.PI * 2),
-            vr: random(-0.2, 0.2),
-            color: colors[Math.floor(Math.random() * colors.length)],
-            alpha: random(0.7, 1),
-          });
-        }
-      }
-
-      function drawPiece(piece) {
-        ctx.save();
-        ctx.globalAlpha = piece.alpha;
-        ctx.translate(piece.x, piece.y);
-        ctx.rotate(piece.rot);
-        ctx.fillStyle = piece.color;
-        ctx.fillRect(-piece.w / 2, -piece.h / 2, piece.w, piece.h);
-        ctx.restore();
-      }
-
-      function animate(timestamp) {
-        if (!startTime) startTime = timestamp;
-        const elapsed = timestamp - startTime;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        pieces.forEach(function (piece) {
-          piece.x += piece.vx;
-          piece.y += piece.vy;
-          piece.rot += piece.vr;
-          piece.vy += 0.03;
-          drawPiece(piece);
-        });
-
-        if (elapsed < durationMs) {
-          requestAnimationFrame(animate);
-        } else {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          canvas.remove();
-        }
-      }
-
-      resizeCanvas();
-      createPieces();
-      window.addEventListener("resize", resizeCanvas);
-      requestAnimationFrame(animate);
-    })();
-  </script>
 </body>
 </html>
