@@ -286,7 +286,11 @@
 
       <section class="video-wrap">
         <div class="video">
-          <img src="images/Untitled design.png" alt="Scheduled call preview" />
+          <img
+            src="images/Untitled%20design.png"
+            alt="Scheduled call preview"
+            onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='/thank-you/images/Untitled%20design.png';}else if(!this.dataset.secondFallbackTried){this.dataset.secondFallbackTried='1';this.src='/images/Untitled%20design.png';}"
+          />
         </div>
       </section>
     </main>
