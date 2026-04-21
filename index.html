@@ -197,18 +197,6 @@
       background-position: center;
     }
 
-    .video-poster-btn {
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 10px;
-      background: linear-gradient(180deg, rgba(47, 159, 212, 0.95), rgba(31, 123, 167, 0.95));
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 10px 16px;
-      cursor: pointer;
-      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
-    }
-
     .cta-box p {
       margin-bottom: 16px;
       font-size: clamp(15px, 2.2vw, 22px);
@@ -230,6 +218,125 @@
 
     .cta-btn:hover {
       filter: brightness(1.07);
+    }
+
+    .optin-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+      background: rgba(2, 4, 8, 0.82);
+      z-index: 1000;
+    }
+
+    .optin-modal.is-open {
+      display: flex;
+    }
+
+    .optin-card {
+      width: min(100%, 520px);
+      border-radius: 14px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(8, 12, 18, 0.95);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.5);
+      padding: 22px;
+      text-align: left;
+    }
+
+    .optin-title {
+      font-size: clamp(22px, 3vw, 32px);
+      line-height: 1.15;
+      margin-bottom: 10px;
+      letter-spacing: -0.02em;
+    }
+
+    .optin-text {
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-size: 15px;
+    }
+
+    .optin-step {
+      display: none;
+    }
+
+    .optin-step.is-active {
+      display: block;
+    }
+
+    .optin-input {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+      margin: 12px 0 14px;
+    }
+
+    .choice-btn {
+      width: 100%;
+      text-align: left;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      color: #fff;
+      padding: 12px 14px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .choice-btn.is-selected {
+      border-color: rgba(47, 159, 212, 0.95);
+      background: rgba(47, 159, 212, 0.2);
+    }
+
+    .optin-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 6px;
+    }
+
+    .optin-btn {
+      border: none;
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .optin-btn.secondary {
+      background: rgba(255, 255, 255, 0.12);
+      color: #fff;
+    }
+
+    .optin-btn.primary {
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: #fff;
+    }
+
+    .optin-btn[disabled] {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .other-business-wrap {
+      display: none;
+      margin-top: 8px;
+    }
+
+    .other-business-wrap.is-visible {
+      display: block;
     }
 
     @media (max-width: 600px) {
@@ -291,9 +398,7 @@
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowfullscreen
           ></iframe>
-          <div class="video-poster" id="video-poster">
-            <button class="video-poster-btn" type="button">Click To Play</button>
-          </div>
+          <div class="video-poster" id="video-poster"></div>
         </div>
         <div class="mobile-video-divider" aria-hidden="true"></div>
         <div class="video-card">
@@ -304,9 +409,7 @@
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowfullscreen
           ></iframe>
-          <div class="video-poster video-poster-two">
-            <button class="video-poster-btn" type="button">Click To Play</button>
-          </div>
+          <div class="video-poster video-poster-two"></div>
         </div>
         <div class="mobile-video-divider" aria-hidden="true"></div>
         <h2 class="results-title more-results-title">More Results From Our Client Campaigns</h2>
@@ -330,6 +433,53 @@
       </div>
     </section>
   </main>
+  <div class="optin-modal" id="optin-modal" role="dialog" aria-modal="true" aria-labelledby="optin-title">
+    <div class="optin-card">
+      <div class="optin-step is-active" id="step-1">
+        <h3 class="optin-title" id="optin-title">Book Your Call</h3>
+        <p class="optin-text">Fill out your name and email, then click Continue.</p>
+        <input class="optin-input" id="optin-name" type="text" placeholder="Full name">
+        <input class="optin-input" id="optin-email" type="email" placeholder="Email address">
+        <div class="optin-actions">
+          <button class="optin-btn secondary" id="optin-close" type="button">Close</button>
+          <button class="optin-btn primary" id="to-step-2" type="button" disabled>Continue</button>
+        </div>
+      </div>
+
+      <div class="optin-step" id="step-2">
+        <h3 class="optin-title">What is your monthly revenue?</h3>
+        <div class="choice-list" id="revenue-choices">
+          <button class="choice-btn" type="button" data-value="zero-to-50k">$0 - $50,000</button>
+          <button class="choice-btn" type="button" data-value="50k-to-100k">$50,000 - $100,000</button>
+          <button class="choice-btn" type="button" data-value="100k-to-200k">$100,000 - $200,000</button>
+          <button class="choice-btn" type="button" data-value="200k-plus">$200,000+</button>
+        </div>
+        <div class="optin-actions">
+          <button class="optin-btn secondary" id="back-to-1" type="button">Back</button>
+          <button class="optin-btn primary" id="to-step-3" type="button" disabled>Continue</button>
+        </div>
+      </div>
+
+      <div class="optin-step" id="step-3">
+        <h3 class="optin-title">What type of business do you run?</h3>
+        <div class="choice-list" id="business-choices">
+          <button class="choice-btn" type="button" data-value="ai-digital-transformation">AI / Digital Transformation</button>
+          <button class="choice-btn" type="button" data-value="saas">SaaS</button>
+          <button class="choice-btn" type="button" data-value="msp-cyber-security">MSP, Cyber Security</button>
+          <button class="choice-btn" type="button" data-value="professional-services">Professional Services</button>
+          <button class="choice-btn" type="button" data-value="marketing-agency">Marketing Agency</button>
+          <button class="choice-btn" type="button" data-value="other">Other</button>
+        </div>
+        <div class="other-business-wrap" id="other-business-wrap">
+          <input class="optin-input" id="other-business-input" type="text" placeholder="What business do you run?">
+        </div>
+        <div class="optin-actions">
+          <button class="optin-btn secondary" id="back-to-2" type="button">Back</button>
+          <button class="optin-btn primary" id="optin-finish" type="button" disabled>Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <script>
     const videoCards = document.querySelectorAll(".video-card");
 
@@ -343,6 +493,124 @@
           videoPoster.style.display = "none";
         });
       }
+    });
+
+    const optinModal = document.getElementById("optin-modal");
+    const ctaButtons = document.querySelectorAll(".cta-btn");
+    const closeOptin = document.getElementById("optin-close");
+    const step1 = document.getElementById("step-1");
+    const step2 = document.getElementById("step-2");
+    const step3 = document.getElementById("step-3");
+    const nameInput = document.getElementById("optin-name");
+    const emailInput = document.getElementById("optin-email");
+    const toStep2 = document.getElementById("to-step-2");
+    const toStep3 = document.getElementById("to-step-3");
+    const finishBtn = document.getElementById("optin-finish");
+    const backTo1 = document.getElementById("back-to-1");
+    const backTo2 = document.getElementById("back-to-2");
+    const revenueChoices = document.getElementById("revenue-choices");
+    const businessChoices = document.getElementById("business-choices");
+    const otherBusinessWrap = document.getElementById("other-business-wrap");
+    const otherBusinessInput = document.getElementById("other-business-input");
+
+    let selectedRevenue = "";
+    let selectedBusiness = "";
+
+    function showStep(stepEl) {
+      [step1, step2, step3].forEach(function (el) {
+        el.classList.remove("is-active");
+      });
+      stepEl.classList.add("is-active");
+    }
+
+    function isValidEmail(value) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    }
+
+    function validateStep1() {
+      const hasName = nameInput.value.trim().length > 0;
+      const hasValidEmail = isValidEmail(emailInput.value.trim());
+      toStep2.disabled = !(hasName && hasValidEmail);
+    }
+
+    function handleChoiceSelection(container, callback) {
+      const choiceButtons = container.querySelectorAll(".choice-btn");
+      choiceButtons.forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          choiceButtons.forEach(function (b) {
+            b.classList.remove("is-selected");
+          });
+          btn.classList.add("is-selected");
+          callback(btn.dataset.value);
+        });
+      });
+    }
+
+    function validateBusinessStep() {
+      if (!selectedBusiness) {
+        finishBtn.disabled = true;
+        return;
+      }
+
+      if (selectedBusiness === "other") {
+        finishBtn.disabled = otherBusinessInput.value.trim().length === 0;
+        return;
+      }
+
+      finishBtn.disabled = false;
+    }
+
+    ctaButtons.forEach(function (btn) {
+      btn.addEventListener("click", function (event) {
+        event.preventDefault();
+        optinModal.classList.add("is-open");
+        showStep(step1);
+      });
+    });
+
+    closeOptin.addEventListener("click", function () {
+      optinModal.classList.remove("is-open");
+    });
+
+    nameInput.addEventListener("input", validateStep1);
+    emailInput.addEventListener("input", validateStep1);
+
+    toStep2.addEventListener("click", function () {
+      showStep(step2);
+    });
+
+    backTo1.addEventListener("click", function () {
+      showStep(step1);
+    });
+
+    handleChoiceSelection(revenueChoices, function (value) {
+      selectedRevenue = value;
+      toStep3.disabled = !selectedRevenue;
+    });
+
+    toStep3.addEventListener("click", function () {
+      showStep(step3);
+    });
+
+    backTo2.addEventListener("click", function () {
+      showStep(step2);
+    });
+
+    handleChoiceSelection(businessChoices, function (value) {
+      selectedBusiness = value;
+      if (selectedBusiness === "other") {
+        otherBusinessWrap.classList.add("is-visible");
+      } else {
+        otherBusinessWrap.classList.remove("is-visible");
+        otherBusinessInput.value = "";
+      }
+      validateBusinessStep();
+    });
+
+    otherBusinessInput.addEventListener("input", validateBusinessStep);
+
+    finishBtn.addEventListener("click", function () {
+      optinModal.classList.remove("is-open");
     });
   </script>
 </body>
