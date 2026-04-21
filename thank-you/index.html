@@ -128,6 +128,7 @@
       height: auto;
     }
 
+
     .case-studies {
       position: relative;
       z-index: 1;
@@ -276,6 +277,7 @@
         margin-left: -12px;
         margin-right: -12px;
       }
+
     }
 
   </style>
@@ -292,14 +294,11 @@
 
       <section class="video-wrap call-preview-wrap">
         <div class="video">
-          <picture>
-            <source media="(max-width: 620px)" srcset="images/Screenshot%202026-04-21%20at%2017.13.12.png" />
-            <img
-              src="images/Untitled%20design.png"
-              alt="Scheduled call preview"
-              onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='/thank-you/images/Untitled%20design.png';}else if(!this.dataset.secondFallbackTried){this.dataset.secondFallbackTried='1';this.src='/images/Untitled%20design.png';}"
-            />
-          </picture>
+          <img
+            id="callPreviewImage"
+            src="images/Untitled%20design.png"
+            alt=""
+          />
         </div>
       </section>
     </main>
@@ -376,6 +375,38 @@
     </footer>
   </div>
   <script>
+    (function wireCallPreviewImage() {
+      const imageEl = document.getElementById("callPreviewImage");
+      if (!imageEl) {
+        return;
+      }
+
+      const isMobile = window.matchMedia("(max-width: 620px)").matches;
+      const sources = isMobile
+        ? [
+          "images/Screenshot%202026-04-21%20at%2017.13.12.png",
+          "/thank-you/images/Screenshot%202026-04-21%20at%2017.13.12.png",
+          "/images/Screenshot%202026-04-21%20at%2017.13.12.png"
+        ]
+        : [
+          "images/Untitled%20design.png",
+          "/thank-you/images/Untitled%20design.png",
+          "/images/Untitled%20design.png"
+        ];
+
+      let sourceIndex = 0;
+      function setNextSource() {
+        if (sourceIndex >= sources.length) {
+          return;
+        }
+        imageEl.src = sources[sourceIndex];
+        sourceIndex += 1;
+      }
+
+      imageEl.addEventListener("error", setNextSource);
+      setNextSource();
+    })();
+
     (function wireCalendlyCalendarButtons() {
       function toUtcCalendarStamp(dateObj) {
         return dateObj.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
