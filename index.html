@@ -254,7 +254,7 @@
 
     .optin-text {
       color: var(--text-muted);
-      margin-bottom: 14px;
+      margin-bottom: 10px;
       font-size: 15px;
     }
 
@@ -328,6 +328,17 @@
     .optin-btn[disabled] {
       opacity: 0.45;
       cursor: not-allowed;
+    }
+
+    .ineligible-box {
+      margin-top: 10px;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 14px;
+      color: #e6edf5;
+      line-height: 1.45;
+      font-size: 14px;
     }
 
     .other-business-wrap {
@@ -436,7 +447,6 @@
   <div class="optin-modal" id="optin-modal" role="dialog" aria-modal="true" aria-labelledby="optin-title">
     <div class="optin-card">
       <div class="optin-step is-active" id="step-1">
-        <h3 class="optin-title" id="optin-title">Book Your Call</h3>
         <p class="optin-text">Fill out your name and email, then click Continue.</p>
         <input class="optin-input" id="optin-name" type="text" placeholder="Full name">
         <input class="optin-input" id="optin-email" type="email" placeholder="Email address">
@@ -478,6 +488,16 @@
           <button class="optin-btn primary" id="optin-finish" type="button" disabled>Continue</button>
         </div>
       </div>
+
+      <div class="optin-step" id="step-ineligible">
+        <h3 class="optin-title">Thank you for your submission</h3>
+        <div class="ineligible-box">
+          Thank you for filling in your submission. Unfortunately, based on your answers, you aren't eligible for this offer.
+        </div>
+        <div class="optin-actions">
+          <button class="optin-btn secondary" id="ineligible-close" type="button">Close</button>
+        </div>
+      </div>
     </div>
   </div>
   <script>
@@ -501,6 +521,7 @@
     const step1 = document.getElementById("step-1");
     const step2 = document.getElementById("step-2");
     const step3 = document.getElementById("step-3");
+    const stepIneligible = document.getElementById("step-ineligible");
     const nameInput = document.getElementById("optin-name");
     const emailInput = document.getElementById("optin-email");
     const toStep2 = document.getElementById("to-step-2");
@@ -512,12 +533,13 @@
     const businessChoices = document.getElementById("business-choices");
     const otherBusinessWrap = document.getElementById("other-business-wrap");
     const otherBusinessInput = document.getElementById("other-business-input");
+    const ineligibleClose = document.getElementById("ineligible-close");
 
     let selectedRevenue = "";
     let selectedBusiness = "";
 
     function showStep(stepEl) {
-      [step1, step2, step3].forEach(function (el) {
+      [step1, step2, step3, stepIneligible].forEach(function (el) {
         el.classList.remove("is-active");
       });
       stepEl.classList.add("is-active");
@@ -610,7 +632,15 @@
     otherBusinessInput.addEventListener("input", validateBusinessStep);
 
     finishBtn.addEventListener("click", function () {
+      if (selectedRevenue === "zero-to-50k") {
+        showStep(stepIneligible);
+        return;
+      }
       window.location.href = "https://b2b-ai-lander.vercel.app/schedule-your-call";
+    });
+
+    ineligibleClose.addEventListener("click", function () {
+      optinModal.classList.remove("is-open");
     });
   </script>
 </body>
