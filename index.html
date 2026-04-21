@@ -180,17 +180,29 @@
       place-items: center;
       background:
         linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
-        url("./images/hf_20260421_132147_f1f550b4-7f62-42cc-97e6-7380683dfe07.png"),
+        url("./images/hf_20260421_132147_f1f550b4-7f62-42cc-97e6-7380683dfe07.webp"),
         radial-gradient(circle at 30% 20%, rgba(47, 159, 212, 0.3), transparent 45%),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55));
       background-size: cover;
       background-position: center;
     }
 
+    .poster-play-btn {
+      border: 1px solid rgba(255, 255, 255, 0.38);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(47, 159, 212, 0.95), rgba(31, 123, 167, 0.95));
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 14px;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    }
+
     .video-poster-two {
       background:
         linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
-        url("./images/hf_20260421_133022_09254553-d7d4-447e-bb9e-471ae4968bbe.png"),
+        url("./images/hf_20260421_133022_09254553-d7d4-447e-bb9e-471ae4968bbe.webp"),
         radial-gradient(circle at 30% 20%, rgba(47, 159, 212, 0.3), transparent 45%),
         linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55));
       background-size: cover;
@@ -405,22 +417,26 @@
           <iframe
             class="video-frame"
             title="Client results video"
-            data-src="https://player.mux.com/nRutbPoQkABjELw14covr6FdHlw02eRH5Z1gGjDB4sAY?metadata-video-title=Julius+Case+Study+Intro+%281%29&video-title=Julius+Case+Study+Intro+%281%29"
+            data-src="https://player.mux.com/nRutbPoQkABjELw14covr6FdHlw02eRH5Z1gGjDB4sAY?metadata-video-title=Julius+Case+Study+Intro+%281%29&video-title=Julius+Case+Study+Intro+%281%29&autoplay=1"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowfullscreen
           ></iframe>
-          <div class="video-poster" id="video-poster"></div>
+          <div class="video-poster" id="video-poster">
+            <button class="poster-play-btn" type="button">Click here to play</button>
+          </div>
         </div>
         <div class="mobile-video-divider" aria-hidden="true"></div>
         <div class="video-card">
           <iframe
             class="video-frame"
             title="Client results video two"
-            data-src="https://player.mux.com/5OyDCpM01D3BX0202O8yyKvX7C8dNi8oaAY8OZBKDEJryI?metadata-video-title=0421&video-title=0421"
+            data-src="https://player.mux.com/5OyDCpM01D3BX0202O8yyKvX7C8dNi8oaAY8OZBKDEJryI?metadata-video-title=0421&video-title=0421&autoplay=1"
             allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
             allowfullscreen
           ></iframe>
-          <div class="video-poster video-poster-two"></div>
+          <div class="video-poster video-poster-two">
+            <button class="poster-play-btn" type="button">Click here to play</button>
+          </div>
         </div>
         <div class="mobile-video-divider" aria-hidden="true"></div>
         <h2 class="results-title more-results-title">More Results From Our Client Campaigns</h2>
