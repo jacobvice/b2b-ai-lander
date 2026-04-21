@@ -522,11 +522,29 @@
     videoCards.forEach(function (card) {
       const videoPoster = card.querySelector(".video-poster");
       const videoFrame = card.querySelector(".video-frame");
+      const playBtn = card.querySelector(".poster-play-btn");
+
+      function startVideo() {
+        if (!videoFrame.src) {
+          const sourceUrl = new URL(videoFrame.dataset.src);
+          sourceUrl.searchParams.set("autoplay", "true");
+          sourceUrl.searchParams.set("playsinline", "true");
+          videoFrame.src = sourceUrl.toString();
+        }
+        videoPoster.style.display = "none";
+      }
 
       if (videoPoster && videoFrame) {
         videoPoster.addEventListener("click", function () {
-          videoFrame.src = videoFrame.dataset.src;
-          videoPoster.style.display = "none";
+          startVideo();
+        });
+      }
+
+      if (playBtn) {
+        playBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          startVideo();
         });
       }
     });
