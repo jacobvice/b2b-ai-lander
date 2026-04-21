@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Rental Landing Page</title>
+  <style>
+    :root {
+      --bg-dark: #040608;
+      --panel: #0b1117;
+      --panel-soft: rgba(255, 255, 255, 0.06);
+      --text-main: #f5f7fa;
+      --text-muted: #9ca9b7;
+      --accent: #1f7ba7;
+      --accent-2: #2f9fd4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text-main);
+      background-color: var(--bg-dark);
+      /* Dark transparent grid background */
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at top right, rgba(30, 120, 170, 0.25), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(47, 159, 212, 0.18), transparent 40%);
+      background-size: 44px 44px, 44px 44px, 100% 100%, 100% 100%;
+      display: grid;
+      place-items: start center;
+      padding: 16px 24px 24px;
+    }
+
+    .wrap {
+      width: min(100%, 760px);
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-bottom: 16px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #d6e8f6;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(3px);
+    }
+
+    h1 {
+      font-size: clamp(28px, 4.3vw, 46px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      max-width: 24ch;
+      margin-inline: auto;
+    }
+
+    .sub {
+      color: var(--text-muted);
+      max-width: 66ch;
+      margin: 0 auto 28px;
+      font-size: clamp(14px, 2vw, 17px);
+    }
+
+    .cta-box {
+      margin-inline: auto;
+      width: min(100%, 520px);
+      background: var(--panel-soft);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 14px;
+      padding: 24px;
+      backdrop-filter: blur(6px);
+    }
+
+    .divider {
+      width: min(100%, 520px);
+      height: 1px;
+      margin: 22px auto 0;
+      background: rgba(255, 255, 255, 0.28);
+    }
+
+    .results-section {
+      width: min(100%, 520px);
+      margin: 18px auto 0;
+      text-align: center;
+    }
+
+    .videos-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .mobile-video-divider {
+      width: 100%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.28);
+      margin: 2px 0;
+    }
+
+    .results-title {
+      font-family: inherit;
+      font-size: clamp(24px, 3.6vw, 40px);
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .more-results-title {
+      grid-column: 1 / -1;
+      margin-top: 4px;
+      margin-bottom: 6px;
+    }
+
+    .proof-wall {
+      grid-column: 1 / -1;
+      width: 100%;
+      border-radius: 16px;
+      padding: 16px;
+      background-color: #070a10;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at top right, rgba(39, 167, 232, 0.16), transparent 38%);
+      background-size: 34px 34px, 34px 34px, 100% 100%;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .proof-image {
+      width: 100%;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .repeat-hero {
+      grid-column: 1 / -1;
+      margin-top: 18px;
+    }
+
+    .video-card {
+      position: relative;
+      width: 100%;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(255, 255, 255, 0.03);
+      box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+    }
+
+    .video-frame {
+      width: 100%;
+      border: none;
+      aspect-ratio: 16 / 9;
+      display: block;
+    }
+
+    .video-poster {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
+        url("https://image.mux.com/nRutbPoQkABjELw14covr6FdHlw02eRH5Z1gGjDB4sAY/thumbnail.jpg?time=2"),
+        radial-gradient(circle at 30% 20%, rgba(47, 159, 212, 0.3), transparent 45%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .video-poster-two {
+      background:
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.5)),
+        url("https://image.mux.com/5OyDCpM01D3BX0202O8yyKvX7C8dNi8oaAY8OZBKDEJryI/thumbnail.jpg?time=2"),
+        radial-gradient(circle at 30% 20%, rgba(47, 159, 212, 0.3), transparent 45%),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.55));
+      background-size: cover;
+      background-position: center;
+    }
+
+    .video-poster-btn {
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(47, 159, 212, 0.95), rgba(31, 123, 167, 0.95));
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 16px;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.35);
+    }
+
+    .cta-box p {
+      margin-bottom: 16px;
+      font-size: clamp(15px, 2.2vw, 22px);
+      font-weight: 600;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      border: none;
+      border-radius: 10px;
+      background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      color: #fff;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 14px 34px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .cta-btn:hover {
+      filter: brightness(1.07);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px 12px 20px;
+      }
+
+      .badge {
+        width: 100%;
+        max-width: 300px;
+        font-size: 10px;
+        line-height: 1.2;
+      }
+    }
+
+    @media (min-width: 901px) {
+      .results-section {
+        width: min(100%, 1080px);
+      }
+
+      .videos-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .mobile-video-divider {
+        display: none;
+      }
+
+      .proof-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .proof-top {
+        grid-column: 1 / -1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="badge">For businesses looking to adopt AI but have no clue where to start or who to trust</div>
+    <h1>The new "AI Client Acqusition" system booking businesses 50+ sales call per month</h1>
+    <p class="sub">Without hiring another SDR, training them for 3 months, and watching them quit 8 months later.</p>
+
+    <section class="cta-box">
+      <p>Fill out the application below and book a call</p>
+      <a href="#" class="cta-btn">Get Started</a>
+    </section>
+    <div class="divider" aria-hidden="true"></div>
+    <section class="results-section">
+      <h2 class="results-title">Real Results From Our Clients</h2>
+      <div class="videos-grid">
+        <div class="video-card">
+          <iframe
+            class="video-frame"
+            title="Client results video"
+            data-src="https://player.mux.com/nRutbPoQkABjELw14covr6FdHlw02eRH5Z1gGjDB4sAY?metadata-video-title=Julius+Case+Study+Intro+%281%29&video-title=Julius+Case+Study+Intro+%281%29"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen
+          ></iframe>
+          <div class="video-poster" id="video-poster">
+            <button class="video-poster-btn" type="button">Click To Play</button>
+          </div>
+        </div>
+        <div class="mobile-video-divider" aria-hidden="true"></div>
+        <div class="video-card">
+          <iframe
+            class="video-frame"
+            title="Client results video two"
+            data-src="https://player.mux.com/5OyDCpM01D3BX0202O8yyKvX7C8dNi8oaAY8OZBKDEJryI?metadata-video-title=0421&video-title=0421"
+            allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;"
+            allowfullscreen
+          ></iframe>
+          <div class="video-poster video-poster-two">
+            <button class="video-poster-btn" type="button">Click To Play</button>
+          </div>
+        </div>
+        <div class="mobile-video-divider" aria-hidden="true"></div>
+        <h2 class="results-title more-results-title">More Results From Our Client Campaigns</h2>
+        <section class="proof-wall">
+          <div class="proof-grid">
+            <img class="proof-image proof-top" src="./images/Screenshot 2026-04-21 at 12.06.08.png" alt="Client campaign results screenshot one">
+            <img class="proof-image" src="./images/Screenshot 2026-04-21 at 12.06.01.png" alt="Client campaign results screenshot two">
+            <img class="proof-image" src="./images/Screenshot 2026-04-21 at 12.05.54.png" alt="Client campaign results screenshot three">
+            <img class="proof-image" src="./images/Screenshot 2026-04-21 at 12.05.44.png" alt="Client campaign results screenshot four">
+            <img class="proof-image" src="./images/Screenshot 2026-04-21 at 12.05.35.png" alt="Client campaign results screenshot five">
+          </div>
+        </section>
+        <section class="repeat-hero">
+          <h1>The new "AI Client Acqusition" system booking businesses 50+ sales call per month</h1>
+          <p class="sub">Without hiring another SDR, training them for 3 months, and watching them quit 8 months later.</p>
+          <section class="cta-box">
+            <p>Fill out the application below and book a call</p>
+            <a href="#" class="cta-btn">Get Started</a>
+          </section>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script>
+    const videoCards = document.querySelectorAll(".video-card");
+
+    videoCards.forEach(function (card) {
+      const videoPoster = card.querySelector(".video-poster");
+      const videoFrame = card.querySelector(".video-frame");
+
+      if (videoPoster && videoFrame) {
+        videoPoster.addEventListener("click", function () {
+          videoFrame.src = videoFrame.dataset.src;
+          videoPoster.style.display = "none";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
