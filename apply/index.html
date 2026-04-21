@@ -436,6 +436,13 @@
       }
     }
   </style>
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wf7c8jeq5p");
+</script>
 </head>
 <body>
   <main class="wrap">
@@ -519,12 +526,18 @@
       </div>
 
       <div class="optin-step" id="step-2">
-        <h3 class="optin-title">What is your monthly revenue?</h3>
-        <div class="choice-list" id="revenue-choices">
-          <button class="choice-btn" type="button" data-value="zero-to-50k">$0 - $50,000</button>
-          <button class="choice-btn" type="button" data-value="50k-to-100k">$50,000 - $100,000</button>
-          <button class="choice-btn" type="button" data-value="100k-to-200k">$100,000 - $200,000</button>
-          <button class="choice-btn" type="button" data-value="200k-plus">$200,000+</button>
+        <h3 class="optin-title">What type of business do you run?</h3>
+        <div class="choice-list" id="business-choices">
+          <button class="choice-btn" type="button" data-value="technology-saas">Technology &amp; SaaS</button>
+          <button class="choice-btn" type="button" data-value="marketing-creative-agency">Marketing &amp; Creative Agency</button>
+          <button class="choice-btn" type="button" data-value="professional-services">Professional Services</button>
+          <button class="choice-btn" type="button" data-value="hr-recruitment-staffing">HR, Recruitment &amp; Staffing</button>
+          <button class="choice-btn" type="button" data-value="financial-services">Financial Services</button>
+          <button class="choice-btn" type="button" data-value="coaching-consulting-education">Coaching, Consulting &amp; Education</button>
+          <button class="choice-btn" type="button" data-value="other">Other</button>
+        </div>
+        <div class="other-business-wrap" id="other-business-wrap">
+          <input class="optin-input" id="other-business-input" type="text" placeholder="What business do you run?">
         </div>
         <div class="optin-actions">
           <button class="optin-btn secondary" id="back-to-1" type="button">Back</button>
@@ -533,17 +546,12 @@
       </div>
 
       <div class="optin-step" id="step-3">
-        <h3 class="optin-title">What type of business do you run?</h3>
-        <div class="choice-list" id="business-choices">
-          <button class="choice-btn" type="button" data-value="ai-digital-transformation">AI / Digital Transformation</button>
-          <button class="choice-btn" type="button" data-value="saas">SaaS</button>
-          <button class="choice-btn" type="button" data-value="msp-cyber-security">MSP, Cyber Security</button>
-          <button class="choice-btn" type="button" data-value="professional-services">Professional Services</button>
-          <button class="choice-btn" type="button" data-value="marketing-agency">Marketing Agency</button>
-          <button class="choice-btn" type="button" data-value="other">Other</button>
-        </div>
-        <div class="other-business-wrap" id="other-business-wrap">
-          <input class="optin-input" id="other-business-input" type="text" placeholder="What business do you run?">
+        <h3 class="optin-title">What is your monthly revenue?</h3>
+        <div class="choice-list" id="revenue-choices">
+          <button class="choice-btn" type="button" data-value="zero-to-50k">$0 - $50,000</button>
+          <button class="choice-btn" type="button" data-value="50k-to-100k">$50,000 - $100,000</button>
+          <button class="choice-btn" type="button" data-value="100k-to-200k">$100,000 - $200,000</button>
+          <button class="choice-btn" type="button" data-value="200k-plus">$200,000+</button>
         </div>
         <div class="optin-actions">
           <button class="optin-btn secondary" id="back-to-2" type="button">Back</button>
@@ -614,9 +622,88 @@
     const otherBusinessWrap = document.getElementById("other-business-wrap");
     const otherBusinessInput = document.getElementById("other-business-input");
     const ineligibleClose = document.getElementById("ineligible-close");
+    const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/zPe2QgLrXNtXe0surepg/webhook-trigger/3124b5a3-7bb5-4728-a01d-9ceb53e6a8b3";
+    const ATTRIBUTION_STORAGE_KEY = "aiAscensionAttributionParams";
+    const ATTRIBUTION_KEYS = [
+      "fbc_id",
+      "h_ad_id",
+      "utm_campaign",
+      "utm_source",
+      "utm_medium",
+      "utm_content",
+      "utm_term",
+      "utm_id",
+      "fbclid",
+    ];
 
     let selectedRevenue = "";
     let selectedBusiness = "";
+
+    function parseAndStoreAttributionParams() {
+      const searchParams = new URLSearchParams(window.location.search);
+      const captured = {};
+
+      searchParams.forEach(function (value, key) {
+        captured[key] = value;
+      });
+
+      const existingRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+      const existing = existingRaw ? JSON.parse(existingRaw) : {};
+      const merged = { ...existing, ...captured };
+      sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(merged));
+      return merged;
+    }
+
+    function getStoredAttributionParams() {
+      const storedRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+      const stored = storedRaw ? JSON.parse(storedRaw) : {};
+      const normalized = {};
+
+      ATTRIBUTION_KEYS.forEach(function (key) {
+        normalized[key] = stored[key] || "";
+      });
+
+      return { ...stored, ...normalized };
+    }
+
+    function redirectToSchedule() {
+      window.location.href = "/schedule-your-call" + window.location.search;
+    }
+
+    async function submitOptinAndRedirect() {
+      const attributionParams = getStoredAttributionParams();
+      const payload = {
+        form_answers: {
+          full_name: nameInput.value.trim(),
+          email: emailInput.value.trim(),
+          phone: "",
+          business_type: selectedBusiness,
+          monthly_revenue: selectedRevenue,
+          other_business: otherBusinessInput.value.trim(),
+        },
+        attribution: attributionParams,
+        submitted_at: new Date().toISOString(),
+        page_url: window.location.href,
+      };
+
+      try {
+        const response = await fetch(WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error("Webhook request failed with status " + response.status);
+        }
+      } catch (error) {
+        console.error("Webhook submission failed:", error);
+      }
+
+      redirectToSchedule();
+    }
 
     function showStep(stepEl) {
       [step1, step2, step3, stepIneligible].forEach(function (el) {
@@ -650,16 +737,16 @@
 
     function validateBusinessStep() {
       if (!selectedBusiness) {
-        finishBtn.disabled = true;
+        toStep3.disabled = true;
         return;
       }
 
       if (selectedBusiness === "other") {
-        finishBtn.disabled = otherBusinessInput.value.trim().length === 0;
+        toStep3.disabled = otherBusinessInput.value.trim().length === 0;
         return;
       }
 
-      finishBtn.disabled = false;
+      toStep3.disabled = false;
     }
 
     ctaButtons.forEach(function (btn) {
@@ -685,19 +772,6 @@
       showStep(step1);
     });
 
-    handleChoiceSelection(revenueChoices, function (value) {
-      selectedRevenue = value;
-      toStep3.disabled = !selectedRevenue;
-    });
-
-    toStep3.addEventListener("click", function () {
-      showStep(step3);
-    });
-
-    backTo2.addEventListener("click", function () {
-      showStep(step2);
-    });
-
     handleChoiceSelection(businessChoices, function (value) {
       selectedBusiness = value;
       if (selectedBusiness === "other") {
@@ -710,13 +784,27 @@
     });
 
     otherBusinessInput.addEventListener("input", validateBusinessStep);
+    parseAndStoreAttributionParams();
+
+    toStep3.addEventListener("click", function () {
+      showStep(step3);
+    });
+
+    backTo2.addEventListener("click", function () {
+      showStep(step2);
+    });
+
+    handleChoiceSelection(revenueChoices, function (value) {
+      selectedRevenue = value;
+      finishBtn.disabled = !selectedRevenue;
+    });
 
     finishBtn.addEventListener("click", function () {
       if (selectedRevenue === "zero-to-50k") {
         showStep(stepIneligible);
         return;
       }
-      window.location.href = "/schedule-your-call";
+      submitOptinAndRedirect();
     });
 
     ineligibleClose.addEventListener("click", function () {
