@@ -604,7 +604,7 @@
     const otherBusinessInput = document.getElementById("other-business-input");
     const ineligibleClose = document.getElementById("ineligible-close");
     const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/zPe2QgLrXNtXe0surepg/webhook-trigger/3124b5a3-7bb5-4728-a01d-9ceb53e6a8b3";
-    const ATTRIBUTION_STORAGE_KEY = "aiAscensionAttributionParams";
+    const ATTRIBUTION_STORAGE_KEY = "attribution_params";
     const ATTRIBUTION_KEYS = [
       "fbc_id",
       "h_ad_id",
@@ -620,31 +620,37 @@
     let selectedRevenue = "";
     let selectedBusiness = "";
 
-    function parseAndStoreAttributionParams() {
+    function captureAttributionParams() {
       const searchParams = new URLSearchParams(window.location.search);
-      const captured = {};
+      const hasCurrentParams = Array.from(searchParams.keys()).length > 0;
 
+      if (!hasCurrentParams) {
+        const existingRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+        const existing = existingRaw ? JSON.parse(existingRaw) : {};
+        console.log("Captured attribution params:", existing);
+        return existing;
+      }
+
+      const params = {};
       searchParams.forEach(function (value, key) {
-        captured[key] = value;
+        params[key] = value;
       });
 
-      const existingRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
-      const existing = existingRaw ? JSON.parse(existingRaw) : {};
-      const merged = { ...existing, ...captured };
-      sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(merged));
-      return merged;
+      sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(params));
+      console.log("Captured attribution params:", params);
+      return params;
     }
 
     function getStoredAttributionParams() {
       const storedRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
       const stored = storedRaw ? JSON.parse(storedRaw) : {};
-      const normalized = {};
+      const attributionObject = {};
 
       ATTRIBUTION_KEYS.forEach(function (key) {
-        normalized[key] = stored[key] || "";
+        attributionObject[key] = stored[key] || "";
       });
 
-      return { ...stored, ...normalized };
+      return attributionObject;
     }
 
     function redirectToSchedule() {
@@ -652,7 +658,8 @@
     }
 
     async function submitOptinAndRedirect() {
-      const attributionParams = getStoredAttributionParams();
+      const attributionObject = getStoredAttributionParams();
+      console.log("Submitting attribution:", attributionObject);
       const payload = {
         form_answers: {
           full_name: nameInput.value.trim(),
@@ -662,7 +669,7 @@
           monthly_revenue: selectedRevenue,
           other_business: otherBusinessInput.value.trim(),
         },
-        attribution: attributionParams,
+        attribution: attributionObject,
         submitted_at: new Date().toISOString(),
         page_url: window.location.href,
       };
@@ -765,7 +772,7 @@
     });
 
     otherBusinessInput.addEventListener("input", validateBusinessStep);
-    parseAndStoreAttributionParams();
+    captureAttributionParams();
 
     toStep3.addEventListener("click", function () {
       showStep(step3);

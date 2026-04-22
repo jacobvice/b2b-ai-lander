@@ -113,5 +113,27 @@
     <p>DealCloser is not a part of Google, Meta, Facebook, Microsoft, LinkedIn, X, or any of their partner companies.</p>
     <div class="footer-copy">© 2026 DealCloser LLC. All rights reserved.</div>
   </footer>
+  <script>
+    (function () {
+      const ATTRIBUTION_STORAGE_KEY = "attribution_params";
+      const searchParams = new URLSearchParams(window.location.search);
+      const hasCurrentParams = Array.from(searchParams.keys()).length > 0;
+
+      if (!hasCurrentParams) {
+        const existingRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
+        const existing = existingRaw ? JSON.parse(existingRaw) : {};
+        console.log("Captured attribution params:", existing);
+        return;
+      }
+
+      const params = {};
+      searchParams.forEach(function (value, key) {
+        params[key] = value;
+      });
+
+      sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(params));
+      console.log("Captured attribution params:", params);
+    })();
+  </script>
 </body>
 </html>
