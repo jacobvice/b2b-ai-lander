@@ -486,6 +486,25 @@
       <div class="calendly-inline-widget" data-url="https://calendly.com/alex-lee-deal-closer/onboarding?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
     </div>
   </div>
+  <script>
+    (function () {
+      const widget = document.querySelector(".calendly-inline-widget");
+      if (!widget) return;
+
+      const calendlyUrl = new URL(widget.dataset.url);
+      const pageParams = new URLSearchParams(window.location.search);
+      const allowedParams = ["fbc_id", "h_ad_id", "utm_campaign"];
+
+      allowedParams.forEach(function (param) {
+        const value = pageParams.get(param);
+        if (value) {
+          calendlyUrl.searchParams.set(param, value);
+        }
+      });
+
+      widget.dataset.url = calendlyUrl.toString();
+    })();
+  </script>
   <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script>
     const videoCards = document.querySelectorAll(".video-card");
