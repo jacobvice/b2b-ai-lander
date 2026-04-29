@@ -135,7 +135,7 @@
       grid-column: 1 / -1;
       width: 100%;
       border-radius: 16px;
-      padding: 16px;
+      padding: 8px;
       background-color: #070a10;
       background-image:
         linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
@@ -146,17 +146,25 @@
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
     }
 
-    .proof-grid {
+    .proof-stack {
       display: grid;
       grid-template-columns: 1fr;
       gap: 12px;
     }
 
+    .proof-item {
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+      padding: 8px;
+    }
+
     .proof-image {
       width: 100%;
       display: block;
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.14);
       background: rgba(255, 255, 255, 0.03);
     }
 
@@ -413,12 +421,8 @@
         display: none;
       }
 
-      .proof-grid {
+      .proof-stack {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .proof-top {
-        grid-column: 1 / -1;
       }
     }
   </style>
@@ -432,12 +436,12 @@
 </head>
 <body>
   <main class="wrap">
-    <div class="badge">For businesses looking to adopt AI but have no clue where to start or who to trust</div>
-    <h1>The new "AI Client Acquisition" system booking businesses 50+ sales call per month</h1>
-    <p class="sub">Without hiring another SDR, training them for 3 months, and watching them quit 8 months later.</p>
+    <div class="badge">For corporate professionals looking for ways to replace their salary with AI</div>
+    <h1>How I Went From A Burnt Out Corporate Employee To Making $97,000 Per Month In 12 Months With An AI Business</h1>
+    <p class="sub">Without having any prior technical experience, creating my own AI tools, or spending hours trying to prompt ChatGPT</p>
 
     <section class="cta-box">
-      <p>Fill out the application below and book a call</p>
+      <p>Book your call below to see if we can help you do the same</p>
       <a href="#" class="cta-btn">Get Started</a>
     </section>
     <div class="divider" aria-hidden="true"></div>
@@ -467,21 +471,25 @@
           <div class="video-poster video-poster-two"></div>
         </div>
         <div class="mobile-video-divider" aria-hidden="true"></div>
-        <h2 class="results-title more-results-title">More Results From Our Client Campaigns</h2>
+        <h2 class="results-title more-results-title">Hear From Our Clients</h2>
         <section class="proof-wall">
-          <div class="proof-grid">
-            <img class="proof-image proof-top" src="/images/Screenshot 2026-04-21 at 12.06.08.webp" alt="Client campaign results screenshot one" loading="lazy" decoding="async">
-            <img class="proof-image" src="/images/Screenshot 2026-04-21 at 12.06.01.webp" alt="Client campaign results screenshot two" loading="lazy" decoding="async">
-            <img class="proof-image" src="/images/Screenshot 2026-04-21 at 12.05.54.webp" alt="Client campaign results screenshot three" loading="lazy" decoding="async">
-            <img class="proof-image" src="/images/Screenshot 2026-04-21 at 12.05.44.webp" alt="Client campaign results screenshot four" loading="lazy" decoding="async">
-            <img class="proof-image" src="/images/Screenshot 2026-04-21 at 12.05.35.webp" alt="Client campaign results screenshot five" loading="lazy" decoding="async">
+          <div class="proof-stack">
+            <div class="proof-item">
+              <img class="proof-image" src="/images/Untitled design (1).png" alt="Client result screenshot one" loading="lazy" decoding="async">
+            </div>
+            <div class="proof-item">
+              <img class="proof-image" src="/images/Untitled design (2).png" alt="Client result screenshot two" loading="lazy" decoding="async">
+            </div>
+            <div class="proof-item">
+              <img class="proof-image" src="/images/Untitled design.png" alt="Client result screenshot four" loading="lazy" decoding="async">
+            </div>
           </div>
         </section>
         <section class="repeat-hero">
-          <h1>The new "AI Client Acquisition" system booking businesses 50+ sales call per month</h1>
-          <p class="sub">Without hiring another SDR, training them for 3 months, and watching them quit 8 months later.</p>
+          <h1>How I Went From A Burnt Out Corporate Employee To Making $97,000 Per Month In 12 Months With An AI Business</h1>
+          <p class="sub">Without having any prior technical experience, creating my own AI tools, or spending hours trying to prompt ChatGPT</p>
           <section class="cta-box">
-            <p>Fill out the application below and book a call</p>
+            <p>Book your call below to see if we can help you do the same</p>
             <a href="#" class="cta-btn">Get Started</a>
           </section>
         </section>
@@ -494,63 +502,16 @@
     <p>DealCloser is not a part of Google, Meta, Facebook, Microsoft, LinkedIn, X, or any of their partner companies.</p>
     <div class="footer-copy">© 2026 DealCloser LLC. All rights reserved.</div>
   </footer>
-  <div class="optin-modal" id="optin-modal" role="dialog" aria-modal="true" aria-labelledby="optin-title">
+  <div class="optin-modal" id="optin-modal" role="dialog" aria-modal="true" aria-labelledby="calendly-title">
     <div class="optin-card">
-      <div class="optin-step is-active" id="step-1">
-        <p class="optin-text">Fill out your name and email, then click Continue.</p>
-        <input class="optin-input" id="optin-name" type="text" placeholder="Full name">
-        <input class="optin-input" id="optin-email" type="email" placeholder="Email address">
-        <div class="optin-actions">
-          <button class="optin-btn secondary" id="optin-close" type="button">Close</button>
-          <button class="optin-btn primary" id="to-step-2" type="button" disabled>Continue</button>
-        </div>
+      <div class="optin-actions">
+        <button class="optin-btn secondary" id="optin-close" type="button">Close</button>
       </div>
-
-      <div class="optin-step" id="step-2">
-        <h3 class="optin-title">What type of business do you run?</h3>
-        <div class="choice-list" id="business-choices">
-          <button class="choice-btn" type="button" data-value="technology-saas">Technology &amp; SaaS</button>
-          <button class="choice-btn" type="button" data-value="marketing-creative-agency">Marketing &amp; Creative Agency</button>
-          <button class="choice-btn" type="button" data-value="professional-services">Professional Services</button>
-          <button class="choice-btn" type="button" data-value="hr-recruitment-staffing">HR, Recruitment &amp; Staffing</button>
-          <button class="choice-btn" type="button" data-value="financial-services">Financial Services</button>
-          <button class="choice-btn" type="button" data-value="coaching-consulting-education">Coaching, Consulting &amp; Education</button>
-          <button class="choice-btn" type="button" data-value="other">Other</button>
-        </div>
-        <div class="other-business-wrap" id="other-business-wrap">
-          <input class="optin-input" id="other-business-input" type="text" placeholder="What business do you run?">
-        </div>
-        <div class="optin-actions">
-          <button class="optin-btn secondary" id="back-to-1" type="button">Back</button>
-          <button class="optin-btn primary" id="to-step-3" type="button" disabled>Continue</button>
-        </div>
-      </div>
-
-      <div class="optin-step" id="step-3">
-        <h3 class="optin-title">What is your monthly revenue?</h3>
-        <div class="choice-list" id="revenue-choices">
-          <button class="choice-btn" type="button" data-value="zero-to-50k">$0 - $50,000</button>
-          <button class="choice-btn" type="button" data-value="50k-to-100k">$50,000 - $100,000</button>
-          <button class="choice-btn" type="button" data-value="100k-to-200k">$100,000 - $200,000</button>
-          <button class="choice-btn" type="button" data-value="200k-plus">$200,000+</button>
-        </div>
-        <div class="optin-actions">
-          <button class="optin-btn secondary" id="back-to-2" type="button">Back</button>
-          <button class="optin-btn primary" id="optin-finish" type="button" disabled>Continue</button>
-        </div>
-      </div>
-
-      <div class="optin-step" id="step-ineligible">
-        <h3 class="optin-title">Thank you for your submission</h3>
-        <div class="ineligible-box">
-          Thank you for filling in your submission. Unfortunately, based on your answers, you aren't eligible for this offer.
-        </div>
-        <div class="optin-actions">
-          <button class="optin-btn secondary" id="ineligible-close" type="button">Close</button>
-        </div>
-      </div>
+      <h3 class="optin-title" id="calendly-title" style="display:none;"></h3>
+      <div class="calendly-inline-widget" data-url="https://calendly.com/alex-lee-deal-closer/onboarding?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
     </div>
   </div>
+  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
   <script>
     const videoCards = document.querySelectorAll(".video-card");
 
@@ -587,215 +548,15 @@
     const optinModal = document.getElementById("optin-modal");
     const ctaButtons = document.querySelectorAll(".cta-btn");
     const closeOptin = document.getElementById("optin-close");
-    const step1 = document.getElementById("step-1");
-    const step2 = document.getElementById("step-2");
-    const step3 = document.getElementById("step-3");
-    const stepIneligible = document.getElementById("step-ineligible");
-    const nameInput = document.getElementById("optin-name");
-    const emailInput = document.getElementById("optin-email");
-    const toStep2 = document.getElementById("to-step-2");
-    const toStep3 = document.getElementById("to-step-3");
-    const finishBtn = document.getElementById("optin-finish");
-    const backTo1 = document.getElementById("back-to-1");
-    const backTo2 = document.getElementById("back-to-2");
-    const revenueChoices = document.getElementById("revenue-choices");
-    const businessChoices = document.getElementById("business-choices");
-    const otherBusinessWrap = document.getElementById("other-business-wrap");
-    const otherBusinessInput = document.getElementById("other-business-input");
-    const ineligibleClose = document.getElementById("ineligible-close");
-    const WEBHOOK_URL = "https://services.leadconnectorhq.com/hooks/zPe2QgLrXNtXe0surepg/webhook-trigger/3124b5a3-7bb5-4728-a01d-9ceb53e6a8b3";
-    const ATTRIBUTION_STORAGE_KEY = "attribution_params";
-    const ATTRIBUTION_KEYS = [
-      "fbc_id",
-      "h_ad_id",
-      "utm_campaign",
-      "utm_source",
-      "utm_medium",
-      "utm_content",
-      "utm_term",
-      "utm_id",
-      "fbclid",
-    ];
-
-    let selectedRevenue = "";
-    let selectedBusiness = "";
-
-    function captureAttributionParams() {
-      const searchParams = new URLSearchParams(window.location.search);
-      const hasCurrentParams = Array.from(searchParams.keys()).length > 0;
-
-      if (!hasCurrentParams) {
-        const existingRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
-        const existing = existingRaw ? JSON.parse(existingRaw) : {};
-        console.log("Captured attribution params:", existing);
-        return existing;
-      }
-
-      const params = {};
-      searchParams.forEach(function (value, key) {
-        params[key] = value;
-      });
-
-      sessionStorage.setItem(ATTRIBUTION_STORAGE_KEY, JSON.stringify(params));
-      console.log("Captured attribution params:", params);
-      return params;
-    }
-
-    function getStoredAttributionParams() {
-      const storedRaw = sessionStorage.getItem(ATTRIBUTION_STORAGE_KEY);
-      const stored = storedRaw ? JSON.parse(storedRaw) : {};
-      const attributionObject = {};
-
-      ATTRIBUTION_KEYS.forEach(function (key) {
-        attributionObject[key] = stored[key] || "";
-      });
-
-      return attributionObject;
-    }
-
-    function redirectToSchedule() {
-      window.location.href = "/schedule-your-call" + window.location.search;
-    }
-
-    async function submitOptinAndRedirect() {
-      const attributionObject = getStoredAttributionParams();
-      console.log("Submitting attribution:", attributionObject);
-      const payload = {
-        form_answers: {
-          full_name: nameInput.value.trim(),
-          email: emailInput.value.trim(),
-          phone: "",
-          business_type: selectedBusiness,
-          monthly_revenue: selectedRevenue,
-          other_business: otherBusinessInput.value.trim(),
-        },
-        attribution: attributionObject,
-        submitted_at: new Date().toISOString(),
-        page_url: window.location.href,
-      };
-
-      try {
-        const response = await fetch(WEBHOOK_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(payload),
-        });
-
-        if (!response.ok) {
-          throw new Error("Webhook request failed with status " + response.status);
-        }
-      } catch (error) {
-        console.error("Webhook submission failed:", error);
-      }
-
-      redirectToSchedule();
-    }
-
-    function showStep(stepEl) {
-      [step1, step2, step3, stepIneligible].forEach(function (el) {
-        el.classList.remove("is-active");
-      });
-      stepEl.classList.add("is-active");
-    }
-
-    function isValidEmail(value) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-    }
-
-    function validateStep1() {
-      const hasName = nameInput.value.trim().length > 0;
-      const hasValidEmail = isValidEmail(emailInput.value.trim());
-      toStep2.disabled = !(hasName && hasValidEmail);
-    }
-
-    function handleChoiceSelection(container, callback) {
-      const choiceButtons = container.querySelectorAll(".choice-btn");
-      choiceButtons.forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          choiceButtons.forEach(function (b) {
-            b.classList.remove("is-selected");
-          });
-          btn.classList.add("is-selected");
-          callback(btn.dataset.value);
-        });
-      });
-    }
-
-    function validateBusinessStep() {
-      if (!selectedBusiness) {
-        toStep3.disabled = true;
-        return;
-      }
-
-      if (selectedBusiness === "other") {
-        toStep3.disabled = otherBusinessInput.value.trim().length === 0;
-        return;
-      }
-
-      toStep3.disabled = false;
-    }
 
     ctaButtons.forEach(function (btn) {
       btn.addEventListener("click", function (event) {
         event.preventDefault();
         optinModal.classList.add("is-open");
-        showStep(step1);
       });
     });
 
     closeOptin.addEventListener("click", function () {
-      optinModal.classList.remove("is-open");
-    });
-
-    nameInput.addEventListener("input", validateStep1);
-    emailInput.addEventListener("input", validateStep1);
-
-    toStep2.addEventListener("click", function () {
-      showStep(step2);
-    });
-
-    backTo1.addEventListener("click", function () {
-      showStep(step1);
-    });
-
-    handleChoiceSelection(businessChoices, function (value) {
-      selectedBusiness = value;
-      if (selectedBusiness === "other") {
-        otherBusinessWrap.classList.add("is-visible");
-      } else {
-        otherBusinessWrap.classList.remove("is-visible");
-        otherBusinessInput.value = "";
-      }
-      validateBusinessStep();
-    });
-
-    otherBusinessInput.addEventListener("input", validateBusinessStep);
-    captureAttributionParams();
-
-    toStep3.addEventListener("click", function () {
-      showStep(step3);
-    });
-
-    backTo2.addEventListener("click", function () {
-      showStep(step2);
-    });
-
-    handleChoiceSelection(revenueChoices, function (value) {
-      selectedRevenue = value;
-      finishBtn.disabled = !selectedRevenue;
-    });
-
-    finishBtn.addEventListener("click", function () {
-      if (selectedRevenue === "zero-to-50k") {
-        showStep(stepIneligible);
-        return;
-      }
-      submitOptinAndRedirect();
-    });
-
-    ineligibleClose.addEventListener("click", function () {
       optinModal.classList.remove("is-open");
     });
   </script>
