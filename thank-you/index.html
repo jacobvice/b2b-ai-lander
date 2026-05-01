@@ -260,11 +260,20 @@
 
       <section class="video-wrap call-preview-wrap">
         <div class="video">
-          <img
-            id="callPreviewImage"
-            src="images/Untitled%20design.png"
-            alt=""
-          />
+          <picture>
+            <source
+              id="callPreviewSource"
+              media="(max-width: 620px)"
+              srcset="/thank-you/images/Screenshot%202026-04-21%20at%2017.13.12.png"
+            />
+            <img
+              id="callPreviewImage"
+              src="/thank-you/images/Untitled%20design.png"
+              alt="Call confirmation preview"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
         </div>
       </section>
     </main>
@@ -308,35 +317,26 @@
   </div>
   <script>
     (function wireCallPreviewImage() {
+      const sourceEl = document.getElementById("callPreviewSource");
       const imageEl = document.getElementById("callPreviewImage");
-      if (!imageEl) {
+      if (!sourceEl || !imageEl) {
         return;
       }
 
-      const isMobile = window.matchMedia("(max-width: 620px)").matches;
-      const sources = isMobile
-        ? [
-          "images/Screenshot%202026-04-21%20at%2017.13.12.png",
-          "/thank-you/images/Screenshot%202026-04-21%20at%2017.13.12.png",
-          "/images/Screenshot%202026-04-21%20at%2017.13.12.png"
-        ]
-        : [
-          "images/Untitled%20design.png",
-          "/thank-you/images/Untitled%20design.png",
-          "/images/Untitled%20design.png"
-        ];
+      const isLocalhost = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+      const primaryBase = isLocalhost ? "" : "/thank-you";
+      const fallbackBase = isLocalhost ? "/thank-you" : "";
 
-      let sourceIndex = 0;
-      function setNextSource() {
-        if (sourceIndex >= sources.length) {
-          return;
-        }
-        imageEl.src = sources[sourceIndex];
-        sourceIndex += 1;
-      }
+      const mobilePath = "/images/Screenshot%202026-04-21%20at%2017.13.12.png";
+      const desktopPath = "/images/Untitled%20design.png";
 
-      imageEl.addEventListener("error", setNextSource);
-      setNextSource();
+      sourceEl.srcset = primaryBase + mobilePath;
+      imageEl.src = primaryBase + desktopPath;
+      imageEl.onerror = function handleMissingImage() {
+        imageEl.onerror = null;
+        sourceEl.srcset = fallbackBase + mobilePath;
+        imageEl.src = fallbackBase + desktopPath;
+      };
     })();
 
     (function wireCalendlyCalendarButtons() {
