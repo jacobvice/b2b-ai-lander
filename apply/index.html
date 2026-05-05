@@ -222,6 +222,26 @@
       filter: brightness(1.07);
     }
 
+    .booking-section {
+      display: none;
+      width: min(100%, 760px);
+      margin: 22px auto 0;
+    }
+
+    .booking-section.is-visible {
+      display: block;
+    }
+
+    .booking-embed {
+      width: 100%;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(8, 12, 18, 0.95);
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.5);
+      padding: 10px;
+    }
+
     .optin-modal {
       position: fixed;
       inset: 0;
@@ -431,7 +451,7 @@
     <h1>We Build You A Done-For-You AI Business And Close Your First $50,000 In Contracts Within 120 Days, Or You Don't Pay</h1>
     <p class="sub">Without you having to have any technical experience, creating your own AI tools, or spend hours trying to prompt ChatGPT</p>
 
-    <a href="#" class="cta-btn">Get Started</a>
+    <a href="#booking-section" class="cta-btn">Get Started</a>
     <div class="divider" aria-hidden="true"></div>
     <section class="results-section">
       <div class="videos-grid">
@@ -452,8 +472,13 @@
         <section class="repeat-hero">
           <h1>We Build You A Done-For-You AI Business And Close Your First $50,000 In Contracts Within 120 Days, Or You Don't Pay</h1>
           <p class="sub">Without you having to have any technical experience, creating your own AI tools, or spend hours trying to prompt ChatGPT</p>
-          <a href="#" class="cta-btn">Get Started</a>
+          <a href="#booking-section" class="cta-btn">Get Started</a>
         </section>
+      </div>
+    </section>
+    <section class="booking-section" id="booking-section" aria-label="Book a call">
+      <div class="booking-embed">
+        <iframe src="https://api.nextscalegrowth.com/widget/booking/BXifTLTUtNStTAROJjHj" style="width: 100%;border:none;overflow: hidden;" scrolling="no" id="BXifTLTUtNStTAROJjHj_1778010029011"></iframe>
       </div>
     </section>
   </main>
@@ -463,35 +488,7 @@
     <p>DealCloser is not a part of Google, Meta, Facebook, Microsoft, LinkedIn, X, or any of their partner companies.</p>
     <div class="footer-copy">© 2026 DealCloser LLC. All rights reserved.</div>
   </footer>
-  <div class="optin-modal" id="optin-modal" role="dialog" aria-modal="true" aria-labelledby="calendly-title">
-    <div class="optin-card">
-      <div class="optin-actions">
-        <button class="optin-btn secondary" id="optin-close" type="button">Close</button>
-      </div>
-      <h3 class="optin-title" id="calendly-title" style="display:none;"></h3>
-      <div class="calendly-inline-widget" data-url="https://calendly.com/alex-lee-deal-closer/onboarding?hide_event_type_details=1&hide_gdpr_banner=1" style="min-width:320px;height:700px;"></div>
-    </div>
-  </div>
-  <script>
-    (function () {
-      const widget = document.querySelector(".calendly-inline-widget");
-      if (!widget) return;
-
-      const calendlyUrl = new URL(widget.dataset.url);
-      const pageParams = new URLSearchParams(window.location.search);
-      const allowedParams = ["fbc_id", "h_ad_id", "utm_campaign"];
-
-      allowedParams.forEach(function (param) {
-        const value = pageParams.get(param);
-        if (value) {
-          calendlyUrl.searchParams.set(param, value);
-        }
-      });
-
-      widget.dataset.url = calendlyUrl.toString();
-    })();
-  </script>
-  <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+  <script src="https://api.nextscalegrowth.com/js/form_embed.js" type="text/javascript"></script>
   <script>
     const videoCards = document.querySelectorAll(".video-card");
 
@@ -525,20 +522,18 @@
       }
     });
 
-    const optinModal = document.getElementById("optin-modal");
     const ctaButtons = document.querySelectorAll(".cta-btn");
-    const closeOptin = document.getElementById("optin-close");
+    const bookingSection = document.getElementById("booking-section");
 
     ctaButtons.forEach(function (btn) {
       btn.addEventListener("click", function (event) {
         event.preventDefault();
-        optinModal.classList.add("is-open");
+        if (!bookingSection) return;
+        bookingSection.classList.add("is-visible");
+        bookingSection.scrollIntoView({ behavior: "smooth", block: "start" });
       });
     });
 
-    closeOptin.addEventListener("click", function () {
-      optinModal.classList.remove("is-open");
-    });
   </script>
 </body>
 </html>
